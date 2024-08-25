@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using SegFault.Backend.Calculations;
 using SegFault.Backend.Database;
 
 namespace SegFault.Backend.Controllers;
@@ -49,6 +50,10 @@ public class ReviewController(SessionService sessionService, ReviewService revie
     {
         review.Id = Guid.NewGuid().ToString();
         await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
+        var updfr = new UpdateFoodReview();
+        updfr.FoodReview(await reviewService.Reviews.FindAsync(f => f.Target == review.Target));
+        //TODO call recalculate avg rating :satindra
+        //TODO update food item avg rating :garvit
         return Ok();
     }
 

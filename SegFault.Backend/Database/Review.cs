@@ -20,5 +20,8 @@ public record Review
     public string? Text { get; set; }
     
     [BsonElement]
+    public ulong Timestamp { get; set; }
+    
+    [BsonElement]
     public Dictionary<string, int> CustomParameters { get; set; } = new();
 }
