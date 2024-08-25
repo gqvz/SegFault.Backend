@@ -14,7 +14,8 @@ If not connected to wifi then use `death-sucking.gl.at.ply.gg:19979` or `147.185
 
 1. Install [dotnet 8](https://dotnet.microsoft.com/en-us/download)
 2. Run `dotnet build` inside solution directory
-3. Profit
+3. ?????
+4. Profit
 
 ### Running the server
 1. Create a mongodb database and copy its connection string (or use the one created for this hackathon: `mongodb+srv://garvit13:<dbpassword>@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault` replace `<dbpassword>` with `cLsoObS5t2qYrAe4`)
@@ -31,6 +32,10 @@ set MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjb
 For Linux:
 ```sh
 export MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend
+```
+For Mac:
+```zsh
+echo why do you like pain?
 ```
 
 ## Other stuff
