@@ -22,5 +22,5 @@ public record MenuItem
 
     [BsonElement("props")] public List<string> Props { get; set; } = [];
 
-    public Dictionary<string, float> Ratings { get; set; } = new();
+    public Dictionary<string, double> Ratings { get; set; } = new();
 }
