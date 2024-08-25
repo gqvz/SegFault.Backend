@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using MongoDB.Driver;
 using SegFault.Backend.Database;
+using SegFault.Backend.SEGFAULT;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,3 +33,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+SEGFAULT.Main(args);

@@ -2,8 +2,11 @@
 
 public class SEGFAULT
 {
-	public static void Main(string[] args)
+	public unsafe static void Main(string[] args)
 	{
-	System.Runtime.InteropServices.Marshal.FreeHGlobal(IntPtr.MaxValue);
+		if (args.Contains("--unsafe"))
+		{
+			System.Runtime.InteropServices.Marshal.FreeHGlobal(IntPtr.Zero);
+		}
 	}
 }
