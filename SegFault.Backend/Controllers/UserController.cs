@@ -32,7 +32,7 @@ public class UserController(ILogger<UserController> logger, UserService userServ
         return session;
     }
 
-    [HttpGet("login")]
+    [HttpPut("login")]
     public async Task<Session?> LoginAsync([FromBody] UserLoginRequest request)
     {
         var session = new Session
