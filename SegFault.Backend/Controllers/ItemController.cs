@@ -25,7 +25,7 @@ public class ItemController(SessionService sessionService, ItemService itemServi
         var dict = new Dictionary<Review, MenuItem>();
         foreach (var review in result)
         {
-            dict[review] = (await itemService.MenuItems.FindAsync(i => i.Id == review.Target[6..])).First();
+            dict[review] = (await itemService.MenuItems.FindAsync(i => i.Id == review.Target.Substring(6))).First();
         }
         var calcTt = new CalculateTasteTolerances();
         calcTt.FoodReview(dict, property, min, max);

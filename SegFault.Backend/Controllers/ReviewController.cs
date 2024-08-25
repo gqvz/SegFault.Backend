@@ -54,8 +54,6 @@ public class ReviewController(SessionService sessionService, ReviewService revie
         var item = (await itemService.MenuItems.FindAsync(i => i.Id == itemId)).First();
         item.Ratings = await updfr.FoodReview(await reviewService.Reviews.FindAsync(f => f.Target == review.Target));
         await itemService.MenuItems.UpdateOneAsync(i => i.Id == itemId, new ObjectUpdateDefinition<MenuItem>(item));
-        //TODO call recalculate avg rating :satindra
-        //TODO update food item avg rating :garvit
         return Ok();
     }
 

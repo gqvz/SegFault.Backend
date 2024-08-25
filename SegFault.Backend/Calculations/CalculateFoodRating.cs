@@ -11,10 +11,9 @@ public class CalculateFoodRating
 		Dictionary<string,double>  weightedSum=new Dictionary<string, double>();
 		double weightSum=0;
 		
-		
 		foreach (var review in await reviews.ToListAsync())
 		{
-			//TODO add weights for more "good reviewers"
+			
 			double timeDifference = (DateTime.Now - review.Timestamp).Days/1461.0;
 			if (timeDifference > 1) continue; // Ignore all reviews older than 4 years
 			double weight = Math.Pow(1 - Math.Sqrt(timeDifference), 2);
@@ -27,7 +26,7 @@ public class CalculateFoodRating
 
 		foreach (var ratingType in weightedSum.Keys)
 		{
-			ratings[ratingType]=(float)(weightedSum[ratingType] / weightSum);
+			ratings[ratingType]=(float)((weightedSum[ratingType]+3.75) / (weightSum+1.5));
 		}
 
 		return ratings;
