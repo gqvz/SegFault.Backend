@@ -1,15 +1,19 @@
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 
 namespace SegFault.Backend.Database;
 
 public record MenuResult
 {
     [BsonId]
+    [JsonProperty("bhawan")]
     public required string Bhawan;
     
     [BsonElement]
-    public List<MenuItem> Day = new List<MenuItem>();
+    [JsonProperty("day")]
+    public List<MenuItem> Day = [];
     
     [BsonElement]
-    public List<MenuItem> Night = new List<MenuItem>();
+    [JsonProperty("night")]
+    public List<MenuItem> Night = [];
 }

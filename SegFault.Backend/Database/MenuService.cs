@@ -4,11 +4,11 @@ namespace SegFault.Backend.Database;
 
 public class MenuService
 {
-    public readonly IMongoCollection<MenuResult> Menu;
+    public readonly IMongoCollection<MenuResult> Menus;
     
     public MenuService(MongoClient client)
     {
         var db = client.GetDatabase("segfault");
-        Menu = db.GetCollection<MenuResult>("menus");
+        Menus = db.GetCollection<MenuResult>("menus");
     }
 }
