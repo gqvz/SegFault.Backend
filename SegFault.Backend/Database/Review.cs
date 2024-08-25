@@ -35,5 +35,5 @@ public record ReviewReq
     
     public long Timestamp { get; set; }
     
-    public Dictionary<string, int> CustomParameters { get; set; } = new();
+    public Dictionary<string, float> CustomParameters { get; set; } = new();
 }
