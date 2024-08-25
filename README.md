@@ -21,7 +21,17 @@ If not connected to wifi then use `death-sucking.gl.at.ply.gg:19979` or `147.185
 2. Set the environment variable `MONGODB_CONNECTION_URI` to the connection uri mentioned above
 3. Run `dotnet run --prject SegFault.Backend` while inside the solution directory or just `dotnet run` while inside the project directory
 
-**TLDR:Run `export MONGODB_CONNECTION_URI="mongodb+srv://garvit13:<dbpassword>@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend` while inside the solution directory replacing `<dbpassword>` with `cLsoObS5t2qYrAe4`**
+**TLDR:**
+Everything combined into one command:
+
+For windows: 
+```cmd
+set MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend
+```
+For Linux:
+```sh
+export MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend
+```
 
 ## Other stuff
 For schemas and endpoints paste the [swagger file](https://github.com/toasty1307/SegFault.Backend/blob/master/SegFault.Backend/swagger.json) into [swagger editor](https://editor-next.swagger.io/).
