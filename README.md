@@ -43,3 +43,5 @@ For schemas and endpoints paste the [swagger file](https://github.com/toasty1307
 
 ## Remarks
 This server is in no way finished, I have willingly skipped many security checks to complete this within 36 hours.
+
+I know I shouldn't leave secrets on public github repos but I don't care

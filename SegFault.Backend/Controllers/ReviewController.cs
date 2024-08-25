@@ -7,7 +7,7 @@ namespace SegFault.Backend.Controllers;
 
 [ApiController]
 [Route("reviews")]
-public class ReviewController(SessionService sessionService, ReviewService reviewService) : AuthController(sessionService)
+public class ReviewController(SessionService sessionService, ReviewService reviewService, ItemService itemService) : AuthController(sessionService)
 {
     [HttpGet("bhawans/{bhawan}")]
     public async Task<List<Review?>> GetBhawanReviews([FromRoute] string bhawan)
@@ -46,12 +46,14 @@ public class ReviewController(SessionService sessionService, ReviewService revie
     }
 
     [HttpPost("items/{itemId}")]
-    public async Task<IActionResult> PostItemReview([FromBody] Review review)
+    public async Task<IActionResult> PostItemReview([FromRoute] string itemId, [FromBody] Review review)
     {
         review.Id = Guid.NewGuid().ToString();
         await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
-        var updfr = new UpdateFoodReview();
-        updfr.FoodReview(await reviewService.Reviews.FindAsync(f => f.Target == review.Target));
+        var updfr = new CalculateFoodRating();
+        var item = (await itemService.MenuItems.FindAsync(i => i.Id == itemId)).First();
+        item.Ratings = await updfr.FoodReview(await reviewService.Reviews.FindAsync(f => f.Target == review.Target));
+        await itemService.MenuItems.UpdateOneAsync(i => i.Id == itemId, new ObjectUpdateDefinition<MenuItem>(item));
         //TODO call recalculate avg rating :satindra
         //TODO update food item avg rating :garvit
         return Ok();

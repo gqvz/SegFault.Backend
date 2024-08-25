@@ -33,16 +33,19 @@ public class UserController(ILogger<UserController> logger, UserService userServ
     }
 
     [HttpPut("login")]
-    public async Task<Session?> LoginAsync([FromBody] UserLoginRequest request)
+    public async Task<IActionResult?> LoginAsync([FromBody] UserLoginRequest request)
     {
         var session = new Session
         {
             EnrollmentNumber = request.EnrollmentNumber,
             SessionToken = Guid.NewGuid().ToString()
         };
-        
+        var passwordHash = Encoding.UTF32.GetString(SHA256.HashData(Encoding.UTF32.GetBytes(request.Password)));
+        var passwordCheck = await userService.Users.FindAsync(u => u.EnrollmentNumber == request.EnrollmentNumber && u.PasswordHash == passwordHash);
+        if (!await passwordCheck.AnyAsync())
+            return Unauthorized();
         var result = await sessionService.Sessions.FindOneAndUpdateAsync(s => s.EnrollmentNumber == session.EnrollmentNumber, new ObjectUpdateDefinition<Session>(session));
-        return result is null ? null : session;
+        return result is null ? null : Ok(result);
     }
 }
 public record UserCreateRequest(uint EnrollmentNumber, string Name, string Password);

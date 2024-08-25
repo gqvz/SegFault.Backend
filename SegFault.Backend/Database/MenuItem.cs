@@ -17,5 +17,9 @@ public record MenuItem
     [JsonProperty("price")]
     public required uint Price;
 
-    [BsonElement] public List<string> AllowedParameters { get; set; } = [];
+    [BsonElement]
+    public List<string> AllowedParameters { get; set; } = [];
+    
+    [BsonElement]
+    public Dictionary<string, float> Ratings { get; set; } = new();
 }

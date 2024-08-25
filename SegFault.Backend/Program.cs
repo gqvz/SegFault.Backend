@@ -15,6 +15,7 @@ builder.Services.AddSingleton<UserService>(provider => new UserService(provider.
 builder.Services.AddSingleton<SessionService>(provider => new SessionService(provider.GetService<MongoClient>() ?? throw new UnreachableException("This should never throw")));
 builder.Services.AddSingleton<MenuService>(provider => new MenuService(provider.GetService<MongoClient>() ?? throw new UnreachableException("This should never throw")));
 builder.Services.AddSingleton<ReviewService>(provider => new ReviewService(provider.GetService<MongoClient>() ?? throw new UnreachableException("This should never throw")));
+builder.Services.AddSingleton<ItemService>(provider => new ItemService(provider.GetService<MongoClient>() ?? throw new UnreachableException("This should never throw")));
 
 var app = builder.Build();
 

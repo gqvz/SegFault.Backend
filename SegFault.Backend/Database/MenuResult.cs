@@ -11,9 +11,9 @@ public record MenuResult
     
     [BsonElement]
     [JsonProperty("day")]
-    public List<MenuItem> Day = [];
+    public List<string> Day = [];
     
     [BsonElement]
     [JsonProperty("night")]
-    public List<MenuItem> Night = [];
+    public List<string> Night = [];
 }
