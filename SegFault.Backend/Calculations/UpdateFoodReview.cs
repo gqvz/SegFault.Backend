@@ -6,10 +6,13 @@ namespace SegFault.Backend.Calculations;
 
 public class UpdateFoodReview
 {
-	public Dictionary<string, int> FoodReview(IAsyncCursor<Review> reviews)
+	public async Task<Dictionary<string, int>> FoodReview(IAsyncCursor<Review> reviews)
 	{
 		Dictionary<string,int> ratings=new Dictionary<string, int>();
-		
+		foreach(var review in await reviews.ToListAsync())
+		{
+			review.
+		}
 		return ratings;
 	}
 
