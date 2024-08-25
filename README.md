@@ -35,7 +35,7 @@ export MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.
 ```
 For Mac:
 ```zsh
-echo why do you like pain?
+echo "why do you like pain?"
 ```
 
 ## Other stuff
