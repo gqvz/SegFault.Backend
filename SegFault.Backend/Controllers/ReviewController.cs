@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using SegFault.Backend.Calculations;
 using SegFault.Backend.Database;
@@ -19,7 +20,7 @@ public class ReviewController(SessionService sessionService, ReviewService revie
     [HttpPost("bhawans/{bhawan}/{type}")]
     public async Task<IActionResult> PostBhawanReview([FromBody] Review review)
     {
-        review.Id = Guid.NewGuid().ToString();
+        review.Identity = new ObjectId();
         await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
         return Ok();
     }
@@ -37,23 +38,31 @@ public class ReviewController(SessionService sessionService, ReviewService revie
     {
         var enrollmentNumber = Convert.ToUInt32(auth.Split()[0]);
 
-        var reviews = await reviewService.Reviews.FindAsync(r => r.Id == reviewId);
+        var reviews = await reviewService.Reviews.FindAsync(r => r.Identity.ToString() == reviewId);
         var review = reviews.First();
         if (review.ReviewerId != enrollmentNumber)
             return Unauthorized();
-        await reviewService.Reviews.DeleteOneAsync(r => r.Id == reviewId);
+        await reviewService.Reviews.DeleteOneAsync(r => r.Identity.ToString() == reviewId);
         return Ok();
     }
 
     [HttpPost("items/{itemId}")]
-    public async Task<IActionResult> PostItemReview([FromRoute] string itemId, [FromBody] Review review)
+    public async Task<IActionResult> PostItemReview([FromRoute] string itemId, [FromBody] ReviewReq reviewReq)
     {
-        review.Id = Guid.NewGuid().ToString();
+        var review = new Review
+        {
+            Identity = ObjectId.GenerateNewId(),
+            ReviewerId = reviewReq.ReviewerId,
+            Target = reviewReq.Target,
+            CustomParameters = reviewReq.CustomParameters,
+            Text = reviewReq.Text,
+            Timestamp = reviewReq.Timestamp
+        };
         await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
         var updfr = new CalculateFoodRating();
-        var item = (await itemService.MenuItems.FindAsync(i => i.Id == itemId)).First();
+        var item = (await itemService.MenuItems.FindAsync(i => i.Identity.ToString() == itemId)).First();
         item.Ratings = await updfr.FoodReview(await reviewService.Reviews.FindAsync(f => f.Target == review.Target));
-        await itemService.MenuItems.UpdateOneAsync(i => i.Id == itemId, new ObjectUpdateDefinition<MenuItem>(item));
+        //await itemService.MenuItems.UpdateOneAsync(i => i.Identity.ToString() == itemId, new ObjectUpdateDefinition<MenuItem>(item));
         return Ok();
     }
 

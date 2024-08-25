@@ -14,7 +14,7 @@ public class CalculateFoodRating
 		foreach (var review in await reviews.ToListAsync())
 		{
 			
-			double timeDifference = (DateTime.Now - review.Timestamp).Days/1461.0;
+			double timeDifference = (DateTime.Now - DateTime.FromFileTimeUtc(review.Timestamp)).Days/1461.0;
 			if (timeDifference > 1) continue; // Ignore all reviews older than 4 years
 			double weight = Math.Pow(1 - Math.Sqrt(timeDifference), 2);
 			foreach (string ratingType in review.CustomParameters.Keys)

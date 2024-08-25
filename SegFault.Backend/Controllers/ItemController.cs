@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson.IO;
 using MongoDB.Driver;
 using SegFault.Backend.Calculations;
 using SegFault.Backend.Database;
+using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace SegFault.Backend.Controllers;
 
@@ -12,8 +14,8 @@ public class ItemController(SessionService sessionService, ItemService itemServi
     [HttpGet("{itemId}")]
     public async Task<IActionResult> GetItemAsync([FromRoute] string itemId)
     {
-        var item = await itemService.MenuItems.FindAsync(i => i.Id == itemId);
-        return Ok(item.First());
+        var item = await itemService.MenuItems.FindAsync(i => true);
+        return Ok(JsonConvert.SerializeObject(item.First()));
     }
 
     [HttpGet("sort")]
@@ -25,7 +27,7 @@ public class ItemController(SessionService sessionService, ItemService itemServi
         var dict = new Dictionary<Review, MenuItem>();
         foreach (var review in result)
         {
-            dict[review] = (await itemService.MenuItems.FindAsync(i => i.Id == review.Target.Substring(6))).First();
+            dict[review] = (await itemService.MenuItems.FindAsync(i => i.Identity.ToString() == review.Target.Substring(6))).First();
         }
         var calcTt = new CalculateTasteTolerances();
         calcTt.FoodReview(dict, property, min, max);
