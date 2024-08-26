@@ -1,3 +1,8 @@
+<p align="center">
+<img src="https://github.com/TanmayArya-1p/blob/blob/main/tastetailor/segfaulticon.png?raw=true" width=80></img>
+<img src="https://github.com/TanmayArya-1p/blob/blob/main/segfaulticon.png?raw=true" width=80></img>
+</p>
+
 # TasteTailor
 
 This project was made by the `Segmentation Fault` team for hack8all 2024 hackathon.
