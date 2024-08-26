@@ -5,9 +5,9 @@ namespace SegFault.Backend.Calculations;
 
 public class CalculateFoodRating
 {
-	public async Task<Dictionary<string, float>> FoodReview(IAsyncCursor<Review> reviews)
+	public async Task<Dictionary<string, double>> FoodReview(IAsyncCursor<Review> reviews)
 	{
-		Dictionary<string,float> ratings=new Dictionary<string, float>();
+		Dictionary<string,double> ratings=new Dictionary<string, double>();
 		Dictionary<string,double>  weightedSum=new Dictionary<string, double>();
 		double weightSum=0;
 		

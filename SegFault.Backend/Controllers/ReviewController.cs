@@ -11,19 +11,19 @@ namespace SegFault.Backend.Controllers;
 public class ReviewController(SessionService sessionService, ReviewService reviewService, ItemService itemService) : AuthController(sessionService)
 {
     [HttpGet("bhawans/{bhawan}")]
-    public async Task<List<Review?>> GetBhawanReviews([FromRoute] string bhawan)
-    {
-        IAsyncCursor<Review?> reviews = await reviewService.Reviews.FindAsync(r => r.Target.StartsWith($"bhawans/{bhawan}"));
-        return await reviews.ToListAsync();
-    }
-    
-    [HttpPost("bhawans/{bhawan}/{type}")]
-    public async Task<IActionResult> PostBhawanReview([FromBody] Review review)
-    {
-        review.Identity = new ObjectId();
-        await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
-        return Ok();
-    }
+    // public async Task<List<Review?>> GetBhawanReviews([FromRoute] string bhawan)
+    // {
+    //     IAsyncCursor<Review?> reviews = await reviewService.Reviews.FindAsync(r => r.Target.StartsWith($"bhawans/{bhawan}"));
+    //     return await reviews.ToListAsync();
+    // }
+    //
+    // [HttpPost("bhawans/{bhawan}/{type}")]
+    // public async Task<IActionResult> PostBhawanReview([FromBody] Review review)
+    // {
+    //     review.Identity = new ObjectId();
+    //     await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
+    //     return Ok();
+    // }
 
     [HttpGet("me")]
     public async Task<List<Review>> GetMyReviews([FromHeader(Name = "Auth")] string auth)
