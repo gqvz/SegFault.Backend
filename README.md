@@ -39,6 +39,7 @@ For Linux:
 export MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend
 ```
 use "--unsafe" to allow unsafe a server stop
+
 For Mac:
 ```zsh
 echo 'why do you like pain?'
