@@ -22,7 +22,7 @@ public record Review
     public long Timestamp { get; set; }
     
     [BsonElement]
-    public Dictionary<string, int> CustomParameters { get; set; } = new();
+    public Dictionary<string, double> CustomParameters { get; set; } = new();
 }
 
 public record ReviewReq
@@ -35,5 +35,5 @@ public record ReviewReq
     
     public long Timestamp { get; set; }
     
-    public Dictionary<string, int> CustomParameters { get; set; } = new();
+    public Dictionary<string, double> CustomParameters { get; set; } = new();
 }

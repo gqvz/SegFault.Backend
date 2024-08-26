@@ -6,7 +6,7 @@ namespace SegFault.Backend.Database;
 
 public record MenuItem
 {
-    [BsonId] [JsonProperty("id")] public required ObjectId Identity;
+    [BsonId] [JsonProperty("id")] public required ObjectId Id;
 
     [BsonElement("name")] [JsonProperty("name")]
     public required string Name;

@@ -60,9 +60,10 @@ public class ReviewController(SessionService sessionService, ReviewService revie
         };
         await reviewService.Reviews.InsertOneAsync(review); // ik i should verify the user but wtv
         var updfr = new CalculateFoodRating();
-        var item = (await itemService.MenuItems.FindAsync(i => i.Identity.ToString() == itemId)).First();
+        var item = (await itemService.MenuItems.FindAsync(i => i.Id.ToString() == itemId)).First();
         item.Ratings = await updfr.FoodReview(await reviewService.Reviews.FindAsync(f => f.Target == review.Target));
-        //await itemService.MenuItems.UpdateOneAsync(i => i.Identity.ToString() == itemId, new ObjectUpdateDefinition<MenuItem>(item));
+        
+        await itemService.MenuItems.ReplaceOneAsync(i => i.Id.ToString() == item.Id.ToString(), item);
         return Ok();
     }
 

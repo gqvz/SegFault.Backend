@@ -14,7 +14,7 @@ public class ItemController(SessionService sessionService, ItemService itemServi
     [HttpGet("{itemId}")]
     public async Task<IActionResult> GetItemAsync([FromRoute] string itemId)
     {
-        var item = await itemService.MenuItems.FindAsync(i => true);
+        var item = await itemService.MenuItems.FindAsync(i => i.Id.ToString() == itemId);
         return Ok(JsonConvert.SerializeObject(item.First()));
     }
 
@@ -25,14 +25,16 @@ public class ItemController(SessionService sessionService, ItemService itemServi
         var enrollmentNumber = Convert.ToUInt32(auth.Split()[0]);
         var result = await (await reviewService.Reviews.FindAsync(r => r.ReviewerId == enrollmentNumber)).ToListAsync();
         var dict = new Dictionary<Review, MenuItem>();
+        var res = (await itemService.MenuItems.FindAsync(x => true)).ToList();
         foreach (var review in result)
         {
-            dict[review] = (await itemService.MenuItems.FindAsync(i => i.Identity.ToString() == review.Target.Substring(6))).First();
+            dict[review] = res.First(i => i.Id.ToString() == review.Target[6..]);
         }
+
         var calcTt = new CalculateTasteTolerances();
-        calcTt.FoodReview(dict, property, min, max);
+        (min, max) = calcTt.FoodReview(dict, property, min, max);
         var items = await (await itemService.MenuItems.FindAsync(
             i => i.Ratings[property] >= min && i.Ratings[property] <= max)).ToListAsync();
-        return Ok(items);
+        return Ok(JsonConvert.SerializeObject(items));
     }
 }
