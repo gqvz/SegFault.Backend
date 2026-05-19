@@ -1,54 +1,56 @@
 <p align="center">
 <img src="https://github.com/TanmayArya-1p/blob/blob/main/tastetailor/segfaulticon.png?raw=true" width=80></img>
-<img src="https://github.com/TanmayArya-1p/blob/blob/main/segfaulticon.png?raw=true" width=80></img>
 </p>
 
-# TasteTailor
+# TasteTailor — Backend
 
-This project was made by the `Segmentation Fault` team for hack8all 2024 hackathon.
+Backend for **TasteTailor**, a recipe recommendation mobile app built by team `Segmentation Fault` at [hack8all 2024](https://hack8all.in) in 36 hours.
 
-This repository contains the backend needed by the mobile app.
+The app recommends recipes based on ingredients you have on hand, dietary preferences, and cuisine type — powered by an ASP.NET Core REST API backed by MongoDB.
 
-## How to build and run
+## Tech Stack
 
-### If you do not want to build the server
-You can use the instance running on my (Garvit) pc, to connect to it use this ip: `10.81.50.195:5000` while connected to IITR_HIGHSPEED_WIFI.
-If not connected to wifi then use `death-sucking.gl.at.ply.gg:19979` or `147.185.221.22:19979`. If none of these work them blame pm2 or whoever turned off the floor MCB.
+- **Runtime**: .NET 8 / ASP.NET Core
+- **Database**: MongoDB
+- **API Docs**: Swagger / OpenAPI
 
-### Building
+## Getting Started
 
-1. Install [dotnet 8](https://dotnet.microsoft.com/en-us/download)
-2. Run `dotnet build` inside solution directory
-3. ?????
-4. Profit
+### Prerequisites
 
-### Running the server
-1. Create a mongodb database and copy its connection string (or use the one created for this hackathon: `mongodb+srv://garvit13:<dbpassword>@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault` replace `<dbpassword>` with `cLsoObS5t2qYrAe4`)
-2. Set the environment variable `MONGODB_CONNECTION_URI` to the connection uri mentioned above
-3. Run `dotnet run --prject SegFault.Backend` while inside the solution directory or just `dotnet run` while inside the project directory
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download)
+- A MongoDB instance (local or Atlas)
 
-**TLDR:**
-Everything combined into one command:
+### Setup
 
-For windows: 
-```cmd
-set MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend
-```
-For Linux:
-```sh
-export MONGODB_CONNECTION_URI="mongodb+srv://garvit13:cLsoObS5t2qYrAe4@segfault.zjbur.mongodb.net/?retryWrites=true&w=majority&appName=segfault" && dotnet run --project SegFault.Backend
-```
-use "--unsafe" to allow unsafe a server stop
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/gqvz/SegFault.Backend
+   cd SegFault.Backend
+   ```
 
-For Mac:
-```zsh
-echo 'why do you like pain?'
-```
+2. Set your MongoDB connection string as an environment variable:
+   ```sh
+   # Linux / macOS
+   export MONGODB_CONNECTION_URI="your-mongodb-connection-string"
 
-## Other stuff
-For schemas and endpoints paste the [swagger file](https://github.com/toasty1307/SegFault.Backend/blob/master/SegFault.Backend/swagger.json) into [swagger editor](https://editor-next.swagger.io/).
+   # Windows
+   set MONGODB_CONNECTION_URI="your-mongodb-connection-string"
+   ```
 
-## Remarks
-This server is in no way finished, I have willingly skipped many security checks to complete this within 36 hours.
+3. Build and run:
+   ```sh
+   dotnet run --project SegFault.Backend
+   ```
 
-I know I shouldn't leave secrets on public github repos but I don't care
+### API Documentation
+
+Import [`swagger.json`](./SegFault.Backend/swagger.json) into [Swagger Editor](https://editor-next.swagger.io/) to explore all endpoints and schemas.
+
+## Notes
+
+Built under hackathon conditions (36 hours). Some security checks are intentionally skipped to meet the deadline — not production-ready.
+
+## Team
+
+Built by team **Segmentation Fault** — Garvit Sharma, Tanmay Arya, and teammates.
